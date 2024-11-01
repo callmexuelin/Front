@@ -55,11 +55,19 @@ export default {
     async getChatMessage() {
       if (this.userQuery.trim() === '') return; // 如果输入为空，则不发送
 
+      // 判断用户输入是否为 "clear"
+      if (this.userQuery.trim().toLowerCase() === 'clear') {
+      this.chatHistory = []; // 清空聊天记录
+      this.userQuery = ''; // 清空输入框
+      return; // 早退，不发送任何消息
+      }
+
+
       // 先将用户输入的消息添加到聊天记录中
       this.chatHistory.push({ user: '你', text: this.userQuery });
       
       try {
-        const res = await fetch('http://106.75.143.80:5000/ask', {
+        const res = await fetch('http://localhost:5000/ask', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

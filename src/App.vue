@@ -59,7 +59,7 @@ export default {
       this.chatHistory.push({ user: '你', text: this.userQuery });
       
       try {
-        const res = await fetch('http://127.0.0.1:5000/ask', {
+        const res = await fetch('http://106.75.143.80:5000/ask', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -75,6 +75,8 @@ export default {
 
         // 将后台返回的信息也添加到聊天记录中
         this.chatHistory.push({ user: '机器人', text: data.answer });
+        live2d.setMessageBox(data.answer, 3000);
+
         
         console.log(data.answer);
       } catch (error) {
